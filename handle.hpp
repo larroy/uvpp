@@ -107,7 +107,6 @@ namespace uvpp
 
         virtual ~handle()
         {
-            std::cout << "destructor" << std::endl;
             if (! m_will_close)
                 free_handle(&m_uv_handle);
         }

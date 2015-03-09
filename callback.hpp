@@ -97,6 +97,11 @@ namespace uvpp
         {
         }
 
+        callbacks(int max):
+            m_lut(max)
+        {
+        }        
+
         template<typename callback_t>
         static void store(void* target, int cid, const callback_t& callback, void* data=nullptr)
         {
