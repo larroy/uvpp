@@ -15,7 +15,7 @@ namespace uvpp
          *  @param use_default indicates whether to use default loop or create a new loop.
          */
         loop(bool use_default=false):
-            m_uv_loop(use_default ? uv_default_loop() : uv_loop_new())
+            m_uv_loop(use_default ? uv_default_loop() : uv_loop_new()), default_loop(use_default)
         {
         }
 
@@ -24,7 +24,7 @@ namespace uvpp
          */
         ~loop()
         {
-            if(m_uv_loop)
+            if(m_uv_loop && !default_loop)
             {
                 uv_loop_delete(m_uv_loop);
                 m_uv_loop = nullptr;
@@ -87,6 +87,7 @@ namespace uvpp
 
     private:
         uv_loop_t* m_uv_loop;
+        bool default_loop;
     };
 
     /**

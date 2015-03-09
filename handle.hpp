@@ -1,6 +1,8 @@
 #pragma once
 
 #include "callback.hpp"
+#include "error.hpp"
+#include <iostream>
 
 namespace uvpp
 {
@@ -42,7 +44,19 @@ namespace uvpp
 
                 case UV_SIGNAL:
                     delete reinterpret_cast<uv_signal_t*>(*h);
+                    break; 
+
+                case UV_POLL:
+                    delete reinterpret_cast<uv_poll_t*>(*h);
                     break;
+
+                case UV_ASYNC: 
+                    delete reinterpret_cast<uv_async_t*>(*h);
+                    break;
+
+                case UV_FS_EVENT: 
+                    delete reinterpret_cast<uv_fs_event_t*>(*h);
+                    break;                    
 
                 default:
                     assert(0);
@@ -91,8 +105,9 @@ namespace uvpp
             return *this;
         }
 
-        ~handle()
+        virtual ~handle()
         {
+            std::cout << "destructor" << std::endl;
             if (! m_will_close)
                 free_handle(&m_uv_handle);
         }

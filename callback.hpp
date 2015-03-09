@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <functional>
+#include "error.hpp"
 
 namespace uvpp
 {
@@ -15,6 +17,24 @@ namespace uvpp
             uv_cid_shutdown,
             uv_cid_connect,
             uv_cid_connect6,
+            uv_cid_work,
+            uv_cid_after_work,
+            uv_cid_timer,
+            uv_cid_poll,
+            uv_cid_signal,
+            uv_cid_async,
+            uv_cid_fs_open,
+            uv_cid_fs_read,
+            uv_cid_fs_write,
+            uv_cid_fs_close,
+            uv_cid_fs_unlink,
+            uv_cid_fs_stats,
+            uv_cid_fs_fsync,
+            uv_cid_fs_rename,
+            uv_cid_fs_sendfile,
+            uv_cid_fs_poll,
+            uv_cid_fs_event,
+            uv_cid_fs_scandir,
             uv_cid_max
         };
 
