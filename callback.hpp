@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <functional>
+#include <memory>
 #include "error.hpp"
 
 namespace uvpp
