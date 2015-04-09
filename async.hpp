@@ -5,7 +5,6 @@
 #include "loop.hpp"
 #include <chrono>
 #include <iostream>
-#include <memory>
 
 namespace uvpp
 {
