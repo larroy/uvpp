@@ -8,7 +8,7 @@ namespace uvpp
 	class Work : public request<uv_work_t>
     {
     public:        
-        Work(loop& l) : request<uv_work_t>(), loop_(l.get())
+        Work(loop& l) : request<uv_work_t>(), loop_(l)
         {
 
         }
@@ -30,6 +30,6 @@ namespace uvpp
             );
         }
     private:
-    	loop loop_;    	       	
+    	loop &loop_;    	       	
     };
 }
