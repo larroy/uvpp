@@ -70,7 +70,8 @@ namespace uvpp
          */
         bool run_once()
         {
-            return uv_run(m_uv_loop, UV_RUN_ONCE) == 0;
+            int err = uv_run(m_uv_loop, UV_RUN_ONCE);
+            return err == 0;
         }
 
         /**

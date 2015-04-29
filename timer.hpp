@@ -3,7 +3,6 @@
 #include "handle.hpp"
 #include "error.hpp"
 #include <chrono>
-#include <iostream>
 
 namespace uvpp
 {
@@ -34,8 +33,7 @@ namespace uvpp
         }
 
         error start(std::function<void()> callback, const std::chrono::duration<uint64_t, std::milli> &timeout) {
-        	std::cout << "timeout: " << timeout.count() << std::endl;
-			callbacks::store(get()->data, internal::uv_cid_timer, callback);
+        		callbacks::store(get()->data, internal::uv_cid_timer, callback);
         	return error(uv_timer_start(get(),
         		[](uv_timer_t* handle){
         			callbacks::invoke<decltype(callback)>(handle->data, internal::uv_cid_timer);

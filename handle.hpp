@@ -2,7 +2,6 @@
 
 #include "callback.hpp"
 #include "error.hpp"
-#include <iostream>
 
 namespace uvpp
 {
@@ -50,7 +49,7 @@ namespace uvpp
                     delete reinterpret_cast<uv_poll_t*>(*h);
                     break;
 
-                case UV_ASYNC: 
+                case UV_ASYNC:
                     delete reinterpret_cast<uv_async_t*>(*h);
                     break;
 
