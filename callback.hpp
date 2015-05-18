@@ -24,6 +24,7 @@ namespace uvpp
             uv_cid_poll,
             uv_cid_signal,
             uv_cid_async,
+            uv_cid_idle,
             uv_cid_fs_open,
             uv_cid_fs_read,
             uv_cid_fs_write,

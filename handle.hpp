@@ -52,11 +52,15 @@ namespace uvpp
                 case UV_ASYNC:
                     delete reinterpret_cast<uv_async_t*>(*h);
                     break;
+                
+                case UV_IDLE:
+                    delete reinterpret_cast<uv_idle_t*>(*h);
+                    break;
 
                 case UV_FS_EVENT: 
                     delete reinterpret_cast<uv_fs_event_t*>(*h);
-                    break;                    
-
+                    break;
+                
                 default:
                     assert(0);
                     throw std::runtime_error("free_handle can't handle this type");
@@ -126,9 +130,9 @@ namespace uvpp
             return reinterpret_cast<const T*>(m_uv_handle);
         }
 
-        bool is_active()
+        bool is_active() const
         {
-            return uv_is_active(get()) != 0;
+            return uv_is_active(reinterpret_cast<const uv_handle_t*>(m_uv_handle)) != 0;
         }
 
         void close(std::function<void()> callback = []{})
