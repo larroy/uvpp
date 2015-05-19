@@ -4,6 +4,8 @@
 #include "error.hpp"
 #include <algorithm>
 
+#include <iostream>
+
 namespace uvpp
 {
     template<typename HANDLE_T>
@@ -57,7 +59,7 @@ namespace uvpp
                     {
                         callbacks::invoke<decltype(callback)>(s->data, uvpp::internal::uv_cid_read_start, buf->base, nread);
                     }
-                    delete buf->base;
+                    delete [] buf->base;
                 }) == 0;
         }
 
