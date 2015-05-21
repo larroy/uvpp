@@ -84,7 +84,12 @@ namespace uvpp
          *  Internally, this function just calls uv_now() function.
          */
         int64_t now() { return uv_now(m_uv_loop); }
-
+        
+        /**
+         * Stops the loop        
+         */
+        void stop() { uv_stop(m_uv_loop); }
+        
     private:
         uv_loop_t* m_uv_loop;
         bool default_loop;
