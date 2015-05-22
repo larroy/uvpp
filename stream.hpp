@@ -3,8 +3,7 @@
 #include "handle.hpp"
 #include "error.hpp"
 #include <algorithm>
-
-#include <iostream>
+#include <memory>
 
 namespace uvpp
 {
@@ -39,7 +38,7 @@ namespace uvpp
         bool read_start(std::function<void(const char* buf, ssize_t len)> callback)
         {
             callbacks::store(handle<HANDLE_T>::get()->data, uvpp::internal::uv_cid_read_start, callback);
-
+                
             return uv_read_start(handle<HANDLE_T>::template get<uv_stream_t>(),
                 [](uv_handle_t*, size_t suggested_size, uv_buf_t* buf) {
                     assert(buf);
@@ -48,18 +47,22 @@ namespace uvpp
                     buf->len = size;
                 },
                 [](uv_stream_t* s, ssize_t nread, const uv_buf_t* buf) {
-                    // FIXME handle callback throwing exception
+                    // handle callback throwing exception: hold data in shared_ptr
+                    std::shared_ptr<char> baseHolder(buf->base, [](char *p)
+                    {
+                        delete [] p;
+                    });
+                    
                     if(nread < 0)
                     {
                         // FIXME error has nread set to -errno, handle failure
-                        assert(nread == UV_EOF);
+                        // assert(nread == UV_EOF); ???
                         callbacks::invoke<decltype(callback)>(s->data, uvpp::internal::uv_cid_read_start, nullptr, nread);
                     }
                     else if(nread >= 0)
                     {
                         callbacks::invoke<decltype(callback)>(s->data, uvpp::internal::uv_cid_read_start, buf->base, nread);
                     }
-                    delete [] buf->base;
                 }) == 0;
         }
 
