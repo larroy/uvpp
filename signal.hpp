@@ -24,7 +24,7 @@ namespace uvpp
 
         error start(std::function<void(int signum)> callback) {        	
 			callbacks::store(get()->data, internal::uv_cid_signal, callback);
-        	return error(uv_timer_start(get(),
+        	return error(uv_signal_start(get(),
         		[](uv_poll_t* handle, int status, int events){
         			callbacks::invoke<decltype(callback)>(handle->data, internal::uv_cid_signal, status, events);
         		}
@@ -32,7 +32,7 @@ namespace uvpp
         }
 
         error stop() {
-			return error(uv_timer_stop(get()));            	
+			return error(uv_sigbal_stop(get()));            	
         }
     };
 }    
