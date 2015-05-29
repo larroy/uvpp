@@ -32,7 +32,7 @@ namespace uvpp
         }
 
         error stop() {
-			return error(uv_sigbal_stop(get()));            	
+			return error(uv_signal_stop(get()));            	
         }
     };
 }    
