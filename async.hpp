@@ -3,7 +3,6 @@
 #include "handle.hpp"
 #include "error.hpp"
 #include "loop.hpp"
-#include <chrono>
 
 namespace uvpp
 {

@@ -2,6 +2,8 @@
 
 #include "error.hpp"
 
+#include <memory>
+
 namespace uvpp
 {
     /**
@@ -14,9 +16,15 @@ namespace uvpp
          *  Default constructor
          *  @param use_default indicates whether to use default loop or create a new loop.
          */
-        loop(bool use_default=false):
-            m_uv_loop(use_default ? uv_default_loop() : uv_loop_new()), default_loop(use_default)
+        loop(bool use_default=false)
+            : default_loop(use_default)
+            , m_uv_loop(use_default ? uv_default_loop() : new uv_loop_t)
+            //, m_uv_loop(use_default ? uv_default_loop() : uv_loop_new())
         {
+            if (!default_loop && uv_loop_init(m_uv_loop))
+            {
+                throw std::runtime_error("uv_loop_init error");
+            }            
         }
 
         /**
@@ -24,11 +32,22 @@ namespace uvpp
          */
         ~loop()
         {
+            if (m_uv_loop)
+            {
+                uv_loop_close(m_uv_loop);
+                delete m_uv_loop;
+            }
+            // if (m_uv_loop)
+            //     uv_loop_delete(m_uv_loop);
+            
+            /*
             if(m_uv_loop && !default_loop)
             {
                 uv_loop_delete(m_uv_loop);
+//                uv_loop_close(m_uv_loop);
+//                delete m_uv_loop;
                 m_uv_loop = nullptr;
-            }
+            }*/
         }
 
         loop(const loop&) = delete;
@@ -91,9 +110,10 @@ namespace uvpp
         void stop() { uv_stop(m_uv_loop); }
         
     private:
-        uv_loop_t* m_uv_loop;
         bool default_loop;
-    };
+        uv_loop_t* m_uv_loop;
+        // std::unique_ptr<uv_loop_t> m_uv_loop; 
+     };
 
     /**
      *  Starts the default loop.

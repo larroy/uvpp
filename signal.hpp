@@ -16,19 +16,19 @@ namespace uvpp
         }
 
         Signal(loop& l):
-            handle<uv_poll_t>()
+            handle<uv_signal_t>()
         {
             uv_signal_init(l.get(), get());
         }
              
 
-        error start(std::function<void(int signum)> callback) {        	
+        error start(int signum, std::function<void(int signum)> callback) {        	
 			callbacks::store(get()->data, internal::uv_cid_signal, callback);
         	return error(uv_signal_start(get(),
-        		[](uv_poll_t* handle, int status, int events){
-        			callbacks::invoke<decltype(callback)>(handle->data, internal::uv_cid_signal, status, events);
-        		}
-        		));        	
+        		[](uv_signal_t* handle, int signum){
+        			callbacks::invoke<decltype(callback)>(handle->data, internal::uv_cid_signal, signum);
+        		},
+                        signum));        	
         }
 
         error stop() {
