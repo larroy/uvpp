@@ -35,8 +35,9 @@ namespace uvpp
          */
         ~loop()
         {
-            if (m_uv_loop)
+            if (m_uv_loop.get())
             {
+                // no matter default loop or not: http://nikhilm.github.io/uvbook/basics.html#event-loops
                 uv_loop_close(m_uv_loop.get());
             }
         }
