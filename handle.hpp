@@ -137,6 +137,11 @@ namespace uvpp
 
         void close(std::function<void()> callback = []{})
         {
+            if (uv_is_closing(get<uv_handle_t>()))
+            {
+                return; // prevent assertion on double close
+            }
+            
             callbacks::store(get()->data, internal::uv_cid_close, callback);
             m_will_close = true;
             uv_close(get<uv_handle_t>(),
