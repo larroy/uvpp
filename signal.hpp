@@ -35,4 +35,4 @@ namespace uvpp
 			return error(uv_signal_stop(get()));            	
         }
     };
-}    
+}
