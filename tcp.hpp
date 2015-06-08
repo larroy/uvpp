@@ -48,7 +48,7 @@ public:
         return uv_tcp_bind(get(), reinterpret_cast<sockaddr*>(&addr), 0) == 0;
     }
 
-    bool connect(const std::string& ip, int port, std::function<void(error)> callback)
+    bool connect(const std::string& ip, int port, CallbackWithResult callback)
     {
         callbacks::store(get()->data, internal::uv_cid_connect, callback);
         ip4_addr addr = to_ip4_addr(ip, port);
@@ -59,7 +59,7 @@ public:
         }) == 0;
     }
 
-    bool connect6(const std::string& ip, int port, std::function<void(error)> callback)
+    bool connect6(const std::string& ip, int port, CallbackWithResult callback)
     {
         callbacks::store(get()->data, internal::uv_cid_connect6, callback);
         ip6_addr addr = to_ip6_addr(ip, port);

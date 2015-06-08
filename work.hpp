@@ -13,7 +13,7 @@ public:
 
     }
 
-    bool execute(std::function<void()> callback, std::function<void(error)> afterCallback)
+    bool execute(Callback callback, CallbackWithResult afterCallback)
     {
 
 

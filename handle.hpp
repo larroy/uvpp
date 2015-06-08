@@ -133,7 +133,7 @@ public:
         return uv_is_active(reinterpret_cast<const uv_handle_t*>(m_uv_handle)) != 0;
     }
 
-    void close(std::function<void()> callback = [] {})
+    void close(Callback callback = [] {})
     {
         if (uv_is_closing(get<uv_handle_t>()))
         {

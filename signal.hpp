@@ -8,6 +8,9 @@ namespace uvpp {
 class Signal : public handle<uv_signal_t>
 {
 public:
+    
+    typedef std::function<void(int sugnum)> SignalHandler;
+    
     Signal():
         handle<uv_signal_t>()
     {
@@ -21,7 +24,7 @@ public:
     }
 
 
-    error start(int signum, std::function<void(int signum)> callback)
+    error start(int signum, SignalHandler callback)
     {
         callbacks::store(get()->data, internal::uv_cid_signal, callback);
         return error(uv_signal_start(get(),

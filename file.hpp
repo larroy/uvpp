@@ -145,7 +145,7 @@ public:
 
     }
 
-    error open(int flags, int mode, std::function<void(error)> callback)
+    error open(int flags, int mode, CallbackWithResult callback)
     {
 
         auto openCallback = [this, callback](error err, uv_file file)
@@ -207,7 +207,7 @@ public:
         }));
     }
 
-    error write(const char* buf, int len, int offset, std::function<void(error)> callback)
+    error write(const char* buf, int len, int offset, CallbackWithResult callback)
     {
 
         if (!file_) return error(UV_EIO);
@@ -253,7 +253,7 @@ public:
         return error(uv_fs_close(loop_.get(), get(), file_, nullptr));
     }
 
-    error unlink(std::function<void(error err)> callback)
+    error unlink(CallbackWithResult callback)
     {
 
         if (!file_) return error(UV_EIO);
@@ -335,7 +335,7 @@ public:
         }
     }
 
-    error fsync(std::function<void(error err)> callback)
+    error fsync(CallbackWithResult callback)
     {
 
         if (!file_) return error(UV_EIO);
@@ -361,7 +361,7 @@ public:
                );
     }
 
-    error rename(const std::string &newName, std::function<void(error err)> callback)
+    error rename(const std::string &newName, CallbackWithResult callback)
     {
 
         callbacks::store(get()->data, internal::uv_cid_fs_rename, callback);
@@ -385,7 +385,7 @@ public:
                );
     }
 
-    error sendfile(const File &out, int64_t in_offset, size_t length, std::function<void(error err)> callback)
+    error sendfile(const File &out, int64_t in_offset, size_t length, CallbackWithResult callback)
     {
 
         if (!file_) return error(UV_EIO);

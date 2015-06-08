@@ -15,7 +15,7 @@ protected:
     {}
 
 public:
-    bool listen(std::function<void(uvpp::error)> callback, int backlog=128)
+    bool listen(CallbackWithResult callback, int backlog=128)
     {
         callbacks::store(handle<HANDLE_T>::get()->data, uvpp::internal::uv_cid_listen, callback);
         return uv_listen(handle<HANDLE_T>::template get<uv_stream_t>(), backlog, [](uv_stream_t* s, int status)
@@ -73,8 +73,7 @@ public:
         return uv_read_stop(handle<HANDLE_T>::template get<uv_stream_t>()) == 0;
     }
 
-
-    bool write(const char* buf, int len, std::function<void(error)> callback)
+    bool write(const char* buf, int len, CallbackWithResult callback)
     {
         uv_buf_t bufs[] = { uv_buf_t { const_cast<char*>(buf), static_cast<size_t>(len) } };
         callbacks::store(handle<HANDLE_T>::get()->data, uvpp::internal::uv_cid_write, callback);
@@ -85,7 +84,7 @@ public:
         }) == 0;
     }
 
-    bool write(const std::string& buf, std::function<void(error)> callback)
+    bool write(const std::string& buf, CallbackWithResult callback)
     {
         uv_buf_t bufs[] = { uv_buf_t { const_cast<char*>(buf.c_str()), buf.length()} };
         callbacks::store(handle<HANDLE_T>::get()->data, uvpp::internal::uv_cid_write, callback);
@@ -96,7 +95,7 @@ public:
         }) == 0;
     }
 
-    bool write(const std::vector<char>& buf, std::function<void(error)> callback)
+    bool write(const std::vector<char>& buf, CallbackWithResult callback)
     {
         uv_buf_t bufs[] = { uv_buf_t { const_cast<char*>(&buf[0]), buf.size() } };
         callbacks::store(handle<HANDLE_T>::get()->data, uvpp::internal::uv_cid_write, callback);
@@ -107,7 +106,7 @@ public:
         }) == 0;
     }
 
-    bool shutdown(std::function<void(error)> callback)
+    bool shutdown(CallbackWithResult callback)
     {
         callbacks::store(handle<HANDLE_T>::get()->data, uvpp::internal::uv_cid_shutdown, callback);
         return uv_shutdown(new uv_shutdown_t, handle<HANDLE_T>::template get<uv_stream_t>(), [](uv_shutdown_t* req, int status)

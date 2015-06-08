@@ -13,7 +13,7 @@ public:
         init(callback);
     }
 
-    Async(std::function<void()> callback): handle<uv_async_t>(), loop_(uv_default_loop())
+    Async(Callback callback): handle<uv_async_t>(), loop_(uv_default_loop())
     {
         init(callback);
     }
@@ -25,7 +25,7 @@ public:
 
 private:
 
-    error init(std::function<void()> callback)
+    error init(Callback callback)
     {
         callbacks::store(get()->data, internal::uv_cid_async, callback);
 
