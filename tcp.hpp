@@ -54,8 +54,8 @@ public:
         ip4_addr addr = to_ip4_addr(ip, port);
         return uv_tcp_connect(new uv_connect_t, get(), reinterpret_cast<const sockaddr*>(&addr), [](uv_connect_t* req, int status)
         {
+            std::unique_ptr<uv_connect_t> reqHolder(req);
             callbacks::invoke<decltype(callback)>(req->handle->data, internal::uv_cid_connect, error(status));
-            delete req;
         }) == 0;
     }
 
@@ -65,8 +65,8 @@ public:
         ip6_addr addr = to_ip6_addr(ip, port);
         return uv_tcp_connect(new uv_connect_t, get(), reinterpret_cast<const sockaddr*>(&addr), [](uv_connect_t* req, int status)
         {
+            std::unique_ptr<uv_connect_t> reqHolder(req);
             callbacks::invoke<decltype(callback)>(req->handle->data, internal::uv_cid_connect6, error(status));
-            delete req;
         }) == 0;
     }
 

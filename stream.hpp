@@ -49,11 +49,8 @@ public:
         },
         [](uv_stream_t* s, ssize_t nread, const uv_buf_t* buf)
         {
-            // handle callback throwing exception: hold data in shared_ptr
-            std::shared_ptr<char> baseHolder(buf->base, [](char *p)
-            {
-                delete [] p;
-            });
+            // handle callback throwing exception: hold data in unique_ptr
+            std::shared_ptr<char> baseHolder(buf->base, std::default_delete<char[]>());
 
             if (nread < 0)
             {
@@ -79,8 +76,8 @@ public:
         callbacks::store(handle<HANDLE_T>::get()->data, uvpp::internal::uv_cid_write, callback);
         return uv_write(new uv_write_t, handle<HANDLE_T>::template get<uv_stream_t>(), bufs, 1, [](uv_write_t* req, int status)
         {
+            std::unique_ptr<uv_write_t> reqHolder(req);
             callbacks::invoke<decltype(callback)>(req->handle->data, uvpp::internal::uv_cid_write, error(status));
-            delete req;
         }) == 0;
     }
 
@@ -90,8 +87,8 @@ public:
         callbacks::store(handle<HANDLE_T>::get()->data, uvpp::internal::uv_cid_write, callback);
         return uv_write(new uv_write_t, handle<HANDLE_T>::template get<uv_stream_t>(), bufs, 1, [](uv_write_t* req, int status)
         {
+            std::unique_ptr<uv_write_t> reqHolder(req);
             callbacks::invoke<decltype(callback)>(req->handle->data, uvpp::internal::uv_cid_write, error(status));
-            delete req;
         }) == 0;
     }
 
@@ -101,8 +98,8 @@ public:
         callbacks::store(handle<HANDLE_T>::get()->data, uvpp::internal::uv_cid_write, callback);
         return uv_write(new uv_write_t, handle<HANDLE_T>::template get<uv_stream_t>(), bufs, 1, [](uv_write_t* req, int status)
         {
+            std::unique_ptr<uv_write_t> reqHolder(req);
             callbacks::invoke<decltype(callback)>(req->handle->data, uvpp::internal::uv_cid_write, error(status));
-            delete req;
         }) == 0;
     }
 
@@ -111,8 +108,8 @@ public:
         callbacks::store(handle<HANDLE_T>::get()->data, uvpp::internal::uv_cid_shutdown, callback);
         return uv_shutdown(new uv_shutdown_t, handle<HANDLE_T>::template get<uv_stream_t>(), [](uv_shutdown_t* req, int status)
         {
+            std::unique_ptr<uv_shutdown_t> reqHolder(req);
             callbacks::invoke<decltype(callback)>(req->handle->data, uvpp::internal::uv_cid_shutdown, error(status));
-            delete req;
         }) == 0;
     }
 };

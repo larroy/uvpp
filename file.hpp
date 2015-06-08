@@ -2,6 +2,8 @@
 
 #include "request.hpp"
 #include "error.hpp"
+
+#include <memory>
 #include <chrono>
 #include <iostream>
 #include <list>
@@ -184,7 +186,8 @@ public:
 
         auto readCallback = [this, callback, buffer](ssize_t result)
         {
-
+            std::shared_ptr<char> baseHolder(buffer.base, std::default_delete<char[]>);
+            
             if (!result)
             {
                 callback(nullptr, result);
@@ -193,8 +196,6 @@ public:
             {
                 callback(buffer.base, result);
             }
-
-            delete[] buffer.base;
         };
 
         callbacks::store(get()->data, internal::uv_cid_fs_read, readCallback);
