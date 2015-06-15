@@ -1,0 +1,7 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+INSTALL(
+    DIRECTORY include/
+    DESTINATION include
+    COMPONENT development
+)
