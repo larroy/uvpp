@@ -1,6 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
-PROJECT(uvpp)
+PROJECT(libuvpp)
 
 # Version information - derived from tag
 EXECUTE_PROCESS(
