@@ -1,0 +1,15 @@
+Source: uvpp
+Priority: optional
+Maintainer: Vitaly Isaev <isaev@corp.sputnik.ru>
+Build-Depends: debhelper (>= 9), cmake
+Standards-Version: 3.9.5
+Section: libs
+Homepage: https://github.com/shilkin/uvpp
+Vcs-Git: http://github.com/shilkin/uvpp.git
+
+Package: uvpp-dev
+Section: libdevel
+Architecture: any
+Depends: libuv-dev, ${misc:Depends}
+Description: C++11 libuv wrapper
+ Originally Based on "node.native" C++11 libuv wrappers
