@@ -1,6 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
-PROJECT(uvpp)
+PROJECT(libuvpp)
 
 # Version information - derived from tag
 EXECUTE_PROCESS(
@@ -60,7 +60,7 @@ if (UNIX)
         "${CPACK_DEBIAN_PACKAGE_NAME}_${CPACK_DEBIAN_PACKAGE_VERSION}_${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
 
     # Dependencies
-    SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libuv-dev (>= 1.5.0)")
+    SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libuv1-dev (>= 1.5.0)")
 
 
 endif(UNIX)
