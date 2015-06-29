@@ -3,7 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT(libuvpp)
 
 # Test app
-ADD_SUBDIRECTORY(test)
+# ADD_SUBDIRECTORY(test)
 
 # Version information - derived from tag
 EXECUTE_PROCESS(
