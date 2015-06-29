@@ -32,7 +32,7 @@ public:
                             uv_ip4_name(reinterpret_cast<struct sockaddr_in*>(res->ai_addr), addr, res->ai_addrlen);
                         } else
                         {
-                            throw std::logic_error("Unsupproted address family");
+                            throw std::logic_error("Unsupported address family");
                         }
                     }
                     callbacks::invoke<decltype(callback)>(req->data, internal::uv_cid_resolve, error(status), (res->ai_family == AF_INET), addr);
