@@ -21,7 +21,6 @@ public:
                 , get()
                 , [](uv_getaddrinfo_t* req, int status, struct addrinfo* res)
                 {
-                    
                     std::shared_ptr<addrinfo> resHolder(res, [](addrinfo* res)
                     {
                         uv_freeaddrinfo(res);
@@ -37,12 +36,15 @@ public:
                             uv_ip4_name(reinterpret_cast<struct sockaddr_in*>(res->ai_addr), addr, res->ai_addrlen);
                         } else
                         {
-                            throw std::logic_error("Unsupported address family");
+                            callbacks::invoke<decltype(callback)>(req->data, internal::uv_cid_resolve
+                                , error(EAI_ADDRFAMILY)
+                                , false
+                                , addr);
+                            return;
                         }
                     }
                     bool ip4 = res ? res->ai_family == AF_INET : false;
                     callbacks::invoke<decltype(callback)>(req->data, internal::uv_cid_resolve, error(status), ip4, addr);
-                    
                 }
                 , addr.c_str(), 0, 0) == 0);
     }
