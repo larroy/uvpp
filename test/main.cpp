@@ -26,14 +26,14 @@ int main()
 {
     uvpp::loop loop;
     uvpp::Resolver resolver(loop);
-    resolver.resolve("localhost", [](const uvpp::error& error, const std::string& addr)
+    resolver.resolve("localhost", [](const uvpp::error& error, bool ip4, const std::string& addr)
     {
         if (error)
         {
             std::cout << error.str() << std::endl;
             return;
         }
-        std::cout << addr << std::endl;
+        std::cout << (ip4 ? "IP4" : "IP6") << ": " << addr << std::endl;
     });
     
     

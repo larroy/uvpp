@@ -9,7 +9,7 @@ namespace uvpp {
 class Resolver : public request<uv_getaddrinfo_t>
 {
 public:
-    typedef std::function<void(const error&, const std::string&)> Callback; // status, addr
+    typedef std::function<void(const error&, bool, const std::string&)> Callback; // status, is_ip4, addr
     Resolver(loop& l) : request<uv_getaddrinfo_t>(), loop_(l.get())
     {
 
@@ -24,15 +24,18 @@ public:
                     char addr[128] = {'\0'}; // address text buffer
                     if (status == 0)
                     {
-                        if (res->ai_addrlen > 16) 
-                        {   // ai_addrlen == 32 for ip6
+                        if (res->ai_family == AF_INET6) 
+                        {
                             uv_ip6_name(reinterpret_cast<struct sockaddr_in6*>(res->ai_addr), addr, res->ai_addrlen);
-                        } else
+                        } else if (res->ai_family == AF_INET)
                         {
                             uv_ip4_name(reinterpret_cast<struct sockaddr_in*>(res->ai_addr), addr, res->ai_addrlen);
+                        } else
+                        {
+                            throw std::logic_error("Unsupproted address family");
                         }
                     }
-                    callbacks::invoke<decltype(callback)>(req->data, internal::uv_cid_resolve, error(status), addr);
+                    callbacks::invoke<decltype(callback)>(req->data, internal::uv_cid_resolve, error(status), (res->ai_family == AF_INET), addr);
                 }
                 , addr.c_str(), 0, 0) == 0);
     }
