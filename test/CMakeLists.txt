@@ -1,0 +1,14 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+PROJECT(test-uvpp)
+
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wextra -pedantic -pthread -std=c++14 -Wl,--no-as-needed")
+SET(CMAKE_BUILD_TYPE Debug)
+
+INCLUDE_DIRECTORIES(
+    ..
+    ${PROJECT_SOURCE_DIR}
+)
+
+ADD_EXECUTABLE(${PROJECT_NAME} main.cpp)
+
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} uv)
