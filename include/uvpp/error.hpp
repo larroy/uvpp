@@ -23,7 +23,7 @@ public:
     }
 
 public:
-    explicit operator bool()
+    explicit operator bool() const
     {
         return m_error != 0;
     }

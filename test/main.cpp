@@ -5,13 +5,13 @@
 #include <set>
 
 // uvpp
-#include "loop.hpp"
-#include "timer.hpp"
-#include "async.hpp"
-#include "work.hpp"
-#include "tcp.hpp"
-#include "idle.hpp"
-#include "resolver.hpp"
+#include "uvpp/loop.hpp"
+#include "uvpp/timer.hpp"
+#include "uvpp/async.hpp"
+#include "uvpp/work.hpp"
+#include "uvpp/tcp.hpp"
+#include "uvpp/idle.hpp"
+#include "uvpp/resolver.hpp"
 
 #include <memory>
 #include <limits>

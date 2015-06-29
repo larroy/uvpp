@@ -27,7 +27,11 @@ inline void free_request(REQUEST_T** h)
         case UV_FS:
             delete reinterpret_cast<uv_fs_t*>(*h);
             break;
-
+            
+        case UV_GETADDRINFO:
+            delete reinterpret_cast<uv_getaddrinfo_t*>(*h);
+            break;
+            
         default:
             assert(0);
             throw std::runtime_error("free_request can't handle this type");

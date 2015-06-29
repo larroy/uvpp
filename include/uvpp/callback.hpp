@@ -38,6 +38,7 @@ enum uv_callback_id
     uv_cid_fs_poll,
     uv_cid_fs_event,
     uv_cid_fs_scandir,
+    uv_cid_resolve,
     uv_cid_max
 };
 

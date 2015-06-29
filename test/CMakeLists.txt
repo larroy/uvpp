@@ -5,7 +5,7 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wextra -pedantic -pthread -std
 SET(CMAKE_BUILD_TYPE Debug)
 
 INCLUDE_DIRECTORIES(
-    ..
+    ../include
     ${PROJECT_SOURCE_DIR}
 )
 
