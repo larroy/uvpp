@@ -2,7 +2,7 @@ libuvpp (1.6.1ubuntu2) utopic; urgency=medium
 
   * Version bump
 
- -- Vitaly Isaev <isaev@corp.sputnik.ru>  Fri, 03 Jul 2015 16:09:16 +0300
+ -- Vitaly Isaev <autobuilder@corp.sputnik.ru>  Fri, 03 Jul 2015 16:17:02 +0300
 
 libuvpp (1.6.1ubuntu0) utopic; urgency=medium
 
