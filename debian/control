@@ -1,0 +1,14 @@
+Source: libuvpp
+Priority: optional
+Maintainer: Autobuilder <autobuilder@corp.sputnik.ru>
+Build-Depends: debhelper (>= 9), cmake, libuv1-dev (>= 1.5.0)
+Standards-Version: 3.9.5
+Section: libs
+Homepage: https://github.com/shilkin/uvpp.git
+
+Package: libuvpp1-dev
+Section: libdevel
+Architecture: any
+Depends: ${shlibs:Depends},  ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>

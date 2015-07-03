@@ -1,0 +1,27 @@
+libuvpp (1.6.1ubuntu0) utopic; urgency=medium
+
+  [ Vitaly Isaev ]
+  * Переход на CPack
+  * Явное указание версии libuv
+  * Update CMakeLists.txt
+  * Package name and deps change
+
+  [ shilkin ]
+  * resolver added: uv_getaddrinfo_t handler
+  * add subdirectory in root CMakeLists.txt
+  * added DNS resolver: uv_getaddrinfo_t handler
+  * temporary exclude test application from build
+  * Resolver callback changed: added address family info
+  * Fix mistyping in error message
+  * Check res == 0, free addrinfo resource
+  * Добавлен функционал резолвинга имени хоста
+
+  [ Autobuilder ]
+
+ -- Autobuilder <autobuilder@corp.sputnik.ru>  Fri, 03 Jul 2015 12:27:03 +0300
+
+libuvpp (0.1.1-1) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Autobuilder <autobuilder@corp.sputnik.ru>  Fri, 03 Jul 2015 12:14:16 +0300
