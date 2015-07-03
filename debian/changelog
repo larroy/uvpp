@@ -14,14 +14,8 @@ libuvpp (1.6.1ubuntu0) utopic; urgency=medium
   * Resolver callback changed: added address family info
   * Fix mistyping in error message
   * Check res == 0, free addrinfo resource
-  * Добавлен функционал резолвинга имени хоста
+  * Добавлен функционал резолвинга 
 
   [ Autobuilder ]
 
  -- Autobuilder <autobuilder@corp.sputnik.ru>  Fri, 03 Jul 2015 12:27:03 +0300
-
-libuvpp (0.1.1-1) unstable; urgency=low
-
-  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
-
- -- Autobuilder <autobuilder@corp.sputnik.ru>  Fri, 03 Jul 2015 12:14:16 +0300

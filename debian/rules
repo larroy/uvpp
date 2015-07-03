@@ -21,5 +21,5 @@ include /usr/share/dpkg/default.mk
 %:
 	dh $@ 
 
-override_dh_auto_configure:
-	cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr
+# override_dh_auto_configure:
+# 	cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr
