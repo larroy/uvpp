@@ -10,5 +10,5 @@ Package: libuvpp1-dev
 Section: libdevel
 Architecture: any
 Depends: ${shlibs:Depends},  ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Description: libuv c++ wrapper
+ libuv c++ wrapper
