@@ -1,3 +1,9 @@
+libuvpp (1.7.5ubuntu1) utopic; urgency=medium
+
+  * Dependency project libuv was updated to v1.7.5
+
+ -- Autobuilder <autobuilder@corp.sputnik.ru>  Mon, 02 Nov 2015 16:20:10 +0300
+
 libuvpp (1.7.5ubuntu0) utopic; urgency=medium
 
   * Dependency project libuv was updated to v1.7.5
