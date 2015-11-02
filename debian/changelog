@@ -1,3 +1,9 @@
+libuvpp (1.7.5ubuntu2) utopic; urgency=medium
+
+  * Version bump for Jenkins repair
+
+ -- shilkin <autobuilder@corp.sputnik.ru>  Mon, 02 Nov 2015 18:11:34 +0300
+
 libuvpp (1.7.5ubuntu1) utopic; urgency=medium
 
   * Dependency project libuv was updated to v1.7.5
