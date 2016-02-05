@@ -7,3 +7,4 @@
 #include "poll.hpp"
 #include "fspoll.hpp"
 #include "fsevent.hpp"
+#include "pipe.hpp"
