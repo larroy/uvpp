@@ -24,11 +24,6 @@ public:
         return uv_pipe_bind(get(), name.c_str()) == 0;
     }
 
-    bool accept(stream& client)
-    {
-        return uv_accept(get(), client.handle<HANDLE_T>::template get<uv_stream_t>()) == 0;
-    }
-
     void connect(const std::string& name, CallbackWithResult callback)
     {
         callbacks::store(get()->data, internal::uv_cid_connect, callback);
