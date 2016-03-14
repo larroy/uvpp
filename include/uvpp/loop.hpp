@@ -75,11 +75,19 @@ public:
     }
 
     /**
-     *  Polls for new events without blocking.
+     *  Polls for new events once. Blocks if there are no pending events.
      */
     bool run_once()
     {
         return uv_run(m_uv_loop.get(), UV_RUN_ONCE) == 0;
+    }
+
+    /**
+     *  Polls for new events once without blocking.
+     */
+    bool run_nowait()
+    {
+        return uv_run(m_uv_loop.get(), UV_RUN_NOWAIT) == 0;
     }
 
     /**
@@ -133,11 +141,20 @@ inline int run()
 }
 
 /**
- *  Polls for new events without blocking for the default loop.
+ *  Polls for new events for the default loop once.
+ *  Blocks only if there are no pending events.
  */
 inline int run_once()
 {
     return uv_run(uv_default_loop(), UV_RUN_ONCE);
 }
-}
 
+/**
+ *  Polls for new events for the default loop once.
+ *  Non-blocking.
+ */
+inline int run_nowait()
+{
+    return uv_run(uv_default_loop(), UV_RUN_NOWAIT);
+}
+}
