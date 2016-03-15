@@ -12,7 +12,6 @@
 #include "uvpp/tcp.hpp"
 #include "uvpp/idle.hpp"
 #include "uvpp/resolver.hpp"
-#include "uvpp/pipe.hpp"
 
 #include <memory>
 #include <limits>
@@ -38,7 +37,7 @@ int main()
     });
 
 
-#if 1
+#if 0
    uvpp::Tcp tcp(loop);
    if (!tcp.connect("127.0.0.1", 33013, [](auto e){
 
