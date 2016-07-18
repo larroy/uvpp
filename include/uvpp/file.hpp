@@ -186,7 +186,7 @@ public:
 
         auto readCallback = [this, callback, buffer](ssize_t result)
         {
-            std::shared_ptr<char> baseHolder(buffer.base, std::default_delete<char[]>);
+            std::shared_ptr<char> baseHolder(buffer.base, std::default_delete<char[]>());
             
             if (!result)
             {
