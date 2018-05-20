@@ -35,12 +35,12 @@ int main()
         }
         std::cout << (ip4 ? "IP4" : "IP6") << ": " << addr << std::endl;
     });
-    
-    
-#if 0   
+
+
+#if 0
    uvpp::Tcp tcp(loop);
    if (!tcp.connect("127.0.0.1", 33013, [](auto e){
-       
+
        std::cout << "connected: " << e.str() << std::endl;
    }))
        std::cout << "error connect\n";
@@ -64,6 +64,6 @@ int main()
    });
 
    t.join();
-     
+
    return 0;
 }
