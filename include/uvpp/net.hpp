@@ -3,6 +3,7 @@
 #include <memory>
 #include <sstream>
 //#include "../src/cs/config.hpp"
+#include "make_unique_define.h"
 
 
 /// Formatted string, allows to use stream operators and returns a std::string with the resulting format
