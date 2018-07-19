@@ -20,7 +20,7 @@ void TcpConnection::input(const char *data, size_t len)
 	buf.resize(len);
 	memcpy(&buf[0], data, len);
 	buf.push_back('\0');
-	cout << buf << " len:" << len << endl;
+	cout << m_peerName << ":" << buf << " len:" << len << endl;
 }
 
 void TcpConnection::send_msg(const std::string &&msg)

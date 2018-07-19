@@ -48,6 +48,8 @@ void Server::on_tcp_connect(uvpp::error error)
 	os << "tcp://" << peer_ip << ":" << port;
 	string peer_ = os.str();
 
+	tcp_conn.set_peer_name(peer_);
+
 	auto res = m_connections.emplace(piecewise_construct,
 																	 forward_as_tuple(move(peer_)),
 																	 forward_as_tuple(move(tcp_conn_ptr)));
