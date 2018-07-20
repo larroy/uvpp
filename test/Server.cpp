@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Server::Server() : m_running(false), m_port(0), m_loop(), m_tcp_listen_conn(m_loop)
+Server::Server() : m_running(false), m_port(0), m_loop(), m_tcp_listen_conn(m_loop), m_async(m_loop, bind(&Server::on_async, this)), m_on_close(), m_on_connect()
 {
 }
 
@@ -21,7 +21,7 @@ void Server::set_port(int port)
 
 void Server::start()
 {
-	m_tcp_listen_conn.bind("127.0.0.1", 12345);
+	m_tcp_listen_conn.bind("192.168.32.129", 12345);
 	m_tcp_listen_conn.listen(std::bind(&Server::on_tcp_connect, this, placeholders::_1));
 	m_running = true;
 	m_loop.run();
@@ -30,6 +30,28 @@ void Server::start()
 void Server::stop()
 {
 	m_running = false;
+}
+
+void Server::send(const string &peer, const string &msg)
+{
+	std::lock_guard<std::mutex> l(m_send_lock);
+	m_sendBuf.push_back(msg_buf(peer, msg));
+	m_async.send();
+}
+
+void Server::on_async()
+{
+	std::lock_guard<std::mutex> l(m_send_lock);
+	while (!m_sendBuf.empty())
+	{
+		const msg_buf &buf = m_sendBuf.front();
+		auto iter = m_connections.find(buf.peer);
+		if (iter != m_connections.end())
+		{
+			iter->second->send_msg(move(buf.msg));
+		}
+		m_sendBuf.pop_front();
+	}
 }
 
 void Server::on_tcp_connect(uvpp::error error)
@@ -54,17 +76,19 @@ void Server::on_tcp_connect(uvpp::error error)
 																	 forward_as_tuple(move(peer_)),
 																	 forward_as_tuple(move(tcp_conn_ptr)));
 
-	for (auto &r : m_connections)
+	assert(res.second);
+	const string &peer = res.first->first; // reference that will stay valid
+
+	if (m_on_connect)
 	{
-		cout << r.first << endl;
+		m_on_connect(peer);
 	}
 
-	assert(res.second);
-
-	const string &peer = res.first->first; // reference that will stay valid
 	cout << "receive new connect:" << peer << " size = " << m_connections.size() << endl;
 
 	auto close_cb = [this, &peer]() {
+		if (m_on_close)
+			m_on_close(peer);
 		m_connections.erase(peer);
 	};
 
@@ -93,7 +117,6 @@ void Server::on_tcp_connect(uvpp::error error)
 		}
 		else
 		{
-			cout << &tcp_conn << endl;
 			tcp_conn.input(buff, static_cast<size_t>(len));
 		}
 	};
