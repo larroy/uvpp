@@ -21,7 +21,7 @@ void Server::set_port(int port)
 
 void Server::start()
 {
-	m_tcp_listen_conn.bind("192.168.32.129", 12345);
+	m_tcp_listen_conn.bind("0.0.0.0", 12345);
 	m_tcp_listen_conn.listen(std::bind(&Server::on_tcp_connect, this, placeholders::_1));
 	m_running = true;
 	m_loop.run();

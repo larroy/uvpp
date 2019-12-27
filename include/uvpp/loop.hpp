@@ -3,6 +3,7 @@
 #include "error.hpp"
 
 #include <memory>
+#include <functional>
 
 namespace uvpp {
 /**
